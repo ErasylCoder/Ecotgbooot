@@ -1,16 +1,3 @@
-"""
-╔══════════════════════════════════════════════╗
-║        🌿 ECOBALA TELEGRAM BOT               ║
-║        Написан на aiogram 3.x                ║
-║                                              ║
-║  Установка:                                  ║
-║    pip install aiogram                       ║
-║                                              ║
-║  Запуск:                                     ║
-║    python ecobala_bot.py                     ║
-╚══════════════════════════════════════════════╝
-"""
-
 import asyncio
 import logging
 from aiogram import Bot, Dispatcher, F
@@ -38,7 +25,6 @@ YOUTUBE   = "https://youtube.com/channel/UCfkYVJYXBwAlhz5vK8VACKA"
 # ═══════════════════════════════════════════════════
 
 logging.basicConfig(level=logging.INFO)
-
 
 # ───────────────────────────────────────────────────
 #  📋 ТЕКСТЫ
@@ -102,7 +88,6 @@ TEXT_JOIN = (
     "Напишите нам — ответим в течение 24 часов\\."
 )
 
-
 # ───────────────────────────────────────────────────
 #  ⌨️  КЛАВИАТУРЫ
 # ───────────────────────────────────────────────────
@@ -124,12 +109,10 @@ def kb_main() -> InlineKeyboardMarkup:
         ],
     ])
 
-
 def kb_back() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="◀️ Главное меню",        callback_data="main")],
+        [InlineKeyboardButton(text="◀️ Главное меню", callback_data="main")],
     ])
-
 
 def kb_contacts() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(inline_keyboard=[
@@ -141,7 +124,6 @@ def kb_contacts() -> InlineKeyboardMarkup:
         [InlineKeyboardButton(text="◀️ Главное меню", callback_data="main")],
     ])
 
-
 # ───────────────────────────────────────────────────
 #  🤖 КОМАНДЫ
 # ───────────────────────────────────────────────────
@@ -152,14 +134,11 @@ async def cmd_start(message: Message):
         reply_markup=kb_main(),
     )
 
-
 async def cmd_about(message: Message):
     await message.answer(TEXT_ABOUT, reply_markup=kb_back())
 
-
 async def cmd_services(message: Message):
     await message.answer(TEXT_SERVICES, reply_markup=kb_back())
-
 
 async def cmd_contacts(message: Message):
     await message.answer(
@@ -168,14 +147,11 @@ async def cmd_contacts(message: Message):
         disable_web_page_preview=True,
     )
 
-
 async def cmd_join(message: Message):
     await message.answer(TEXT_JOIN, reply_markup=kb_back())
 
-
 async def any_message(message: Message):
     await message.answer(TEXT_MAIN, reply_markup=kb_main())
-
 
 # ───────────────────────────────────────────────────
 #  🖱️  КНОПКИ (callback)
@@ -198,7 +174,6 @@ async def cb_handler(callback: CallbackQuery):
         await callback.message.edit_text(TEXT_JOIN, reply_markup=kb_back())
     await callback.answer()
 
-
 # ───────────────────────────────────────────────────
 #  🚀 ЗАПУСК
 # ───────────────────────────────────────────────────
@@ -207,6 +182,10 @@ async def main():
         token=BOT_TOKEN,
         default=DefaultBotProperties(parse_mode=ParseMode.MARKDOWN_V2),
     )
+
+    # ⚠️ Удаляем старый webhook, чтобы не было конфликта с polling
+    await bot.delete_webhook()
+
     dp = Dispatcher()
 
     # Команды
@@ -222,7 +201,6 @@ async def main():
 
     print("🌿 EcoBala Bot запущен! Ctrl+C для остановки.")
     await dp.start_polling(bot)
-
 
 if __name__ == "__main__":
     asyncio.run(main())
