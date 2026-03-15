@@ -16,7 +16,7 @@ from aiogram.client.default import DefaultBotProperties
 #  ⚙️  НАСТРОЙКИ — заменить на свои!
 # ═══════════════════════════════════════════════════
 BOT_TOKEN    = "8508126262:AAHeQr0ppPwrs1AjJYr0_Ouqm_6_rGI_Wt0"
-MINI_APP_URL = "https://ecobalakz.netlify.app/"
+MINI_APP_URL = "https://ecobala.netlify.app/"
 
 PHONE     = "+7 705 962 8198"
 WA_LINK   = "https://wa.me/77059628198"
